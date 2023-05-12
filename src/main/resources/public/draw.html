@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./assets/FavIcon.svg" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght@20,400"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="./styles/cadastro.css" />
+    <link rel="stylesheet" href="./styles/draw.css" />
+    <script src="./scripts/draw.js" defer></script>
+    <title>ChillOut | Desenhar</title>
+  </head>
+  <body class="body_alterado" onload="carrega()">
+    <header>
+      <div class="logo"><img src="./assets/Logo.svg" alt="logo" /></div>
+      <nav>
+        <ul class="menu">
+          <li class="menu_opcao"><a href="%%./index">Home</a></li>
+          <li class="menu_opcao">
+            <a href="%%./todo">To-Do</a>
+          </li>
+          <li class="menu_opcao"><a href="%%./desenhar" class="active">Desenhar</a></li>
+          <li class="menu_opcao"><a href="%%./cor">Paleta</a></li>
+        </ul>
+      </nav>
+      <a href="./login.html" class="btn_login">Entrar</a>
+    </header>
+    <main>
+      <div class="container">
+        <section class="tools_board">
+          <div class="row">
+            <label class="title">Formas</label>
+            <ul class="options">
+              <li class="option tool" id="rectangle">
+                <span class="material-symbols-outlined">rectangle</span>
+                <span>Retângulo</span>
+              </li>
+              <li class="option tool" id="circle">
+                <span class="material-symbols-outlined">circle</span>
+                <span>Círculo</span>
+              </li>
+              <li class="option tool" id="triangle">
+                <span class="material-symbols-outlined">change_history</span>
+                <span>Triângulo</span>
+              </li>
+              <li class="option">
+                <input type="checkbox" id="fill-color" />
+                <label for="fill-color">Preenchimento</label>
+              </li>
+            </ul>
+          </div>
+          <div class="row">
+            <label class="title">Opções</label>
+            <ul class="options">
+              <li class="option active tool" id="brush">
+                <span class="material-symbols-outlined">brush</span>
+                <span>Brush</span>
+              </li>
+              <li class="option tool" id="eraser">
+                <span class="material-symbols-outlined">remove</span>
+                <span>Apagar</span>
+              </li>
+              <li class="option">
+                <input
+                  type="range"
+                  id="size-slider"
+                  min="1"
+                  max="30"
+                  value="5"
+                />
+              </li>
+            </ul>
+          </div>
+          <div class="row colors">
+            <label class="title">Cores</label>
+            <ul class="options">
+              <li class="option"></li>
+              <li class="option selected"></li>
+              <li class="option"></li>
+              <li class="option"></li>
+              <li class="option">
+                <input type="color" id="color-picker" value="#4A98F7" />
+              </li>
+            </ul>
+          </div>
+          <div class="row buttons">
+            <button class="clear_canvas">Limpar Tela</button>
+            <form>
+              <input type="text" name="padraoDesenho" style="visibility: hidden">
+              <input class="save_drawing" type="submit" value="Salvar desenho">
+            </form>
+            <a class="drawings" href="/desenhar/listar">Meus Desenhos</a>
+          </div>
+        </section>
+        <section class="drawing_board">
+          <canvas></canvas>
+        </section>
+      </div>
+      <img
+        src="./assets/Balls-Image.png"
+        alt="balls"
+        class="drawing_image_balls"
+      />
+      <img
+        src="./assets/Mola1-Image.png"
+        alt="line"
+        class="drawing_image_mola1"
+      />
+      <img
+        src="./assets/Mola2-Image.png"
+        alt="line"
+        class="drawing_image_mola2"
+      />
+      <img
+        src="./assets/Line-Image.png"
+        alt="line"
+        class="drawing_image_line"
+      />
+    </main>
+
+    <script src="./scripts/main.js"></script>
+    <LOADSCRIPT>
+  </body>
+</html>

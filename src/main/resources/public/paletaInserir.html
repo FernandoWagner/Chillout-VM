@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./assets/FavIcon.svg" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght@20,400"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="./styles/cadastro.css" />
+    <link rel="stylesheet" href="./styles/paleta.css" />
+    <title>Chillout | Paleta</title>
+  </head>
+  <body class="body_alterado">
+    <header>
+      <div class="logo"><img src="./assets/Logo.svg" alt="logo" /></div>
+      <nav>
+        <ul class="menu">
+          <li class="menu_opcao"><a href="./index.html">Home</a></li>
+          <li class="menu_opcao"><a href="./todo.html">To-Do</a></li>
+          <li class="menu_opcao"><a href="./draw.html">Desenhar</a></li>
+          <li class="menu_opcao"><a href="#" class="active">Paleta</a></li>
+        </ul>
+      </nav>
+      <a href="./login.html" class="btn_login">Entrar</a>
+    </header>
+    <main>
+      <div id="menuNovaCor" style="display: block;">
+        <div id="menu">
+          <div id="menuConteudo">
+            <h1 class="menuTitle">MOTIVO</h1>
+            <form>
+              <a href="../cor" class="menuFecha">X</a>
+              <h2>Nome</h2>
+              <input type="text" name="nome" class="nomeCor">
+              <h2>Cor</h2>
+              <input type="color" class="corCor" name="corInput" id="">
+              <input type="submit" value="Pronto" class="buttonForm">
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="./scripts/main.js"></script>
+  </body>
+</html>

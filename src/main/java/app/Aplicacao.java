@@ -4,25 +4,23 @@ import static spark.Spark.*;
 
 import service.CorService;
 import service.DesenhoService;
-import service.IndexService;
-
 
 public class Aplicacao {
 
     private  static CorService corService = new CorService();
     private  static DesenhoService desenhoService = new DesenhoService();
-    private  static IndexService indexService = new IndexService();
 
     public static void main(String[] args) {
 
 
         port(6789);
-
-        staticFiles.location("/public");
-
-        get("/",((request, response) -> indexService.get(request,response)));
-
-        get("/index",((request, response) -> indexService.get(request,response)));
+        
+        /* Substituir a string pelo caminho do projeto.
+         * Sugiro salvar em uma pasta do Ubuntu, no Windows algumas referências não
+         * funcionam e as páginas demoram a atualizar as alterações. Fazer o mesmo em
+         * UserService.directory.
+        */
+        externalStaticFileLocation("\\\\wsl.localhost\\Ubuntu\\home\\andre\\programs\\bancoDados\\Chillout-VM\\src\\main\\resources\\public");
 
         // ====================
 

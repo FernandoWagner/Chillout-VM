@@ -11,7 +11,8 @@ public class UsuarioService extends Service {
     private UsuarioDAO dao = new UsuarioDAO();
 
     /**
-     * @param diretorio Pasta onde se encontram os resources públicos no seu computador.
+     * @param diretorio Pasta onde se encontram os resources públicos no seu
+     *                  computador.
      */
     public UsuarioService(String diretorio) {
         super(diretorio);
@@ -31,7 +32,7 @@ public class UsuarioService extends Service {
         } catch (Exception e) {
             html = "Página não encontrada 404";
         }
-        
+
         return html;
     }
 
@@ -42,12 +43,12 @@ public class UsuarioService extends Service {
 
             html = html.replaceAll(">Nome", ">" + user.getNome());
             html = html.replaceAll(">Sobrenome", ">" + user.getSobrenome());
-            html = html.replaceAll(">Email",  ">" + user.getEmail());
+            html = html.replaceAll(">Email", ">" + user.getEmail());
 
             html = replaceToValue(html, "id=\"new_name\"", user.getNome() + "\" id=\"new_name");
             html = replaceToValue(html, "id=\"new_surname\"", user.getSobrenome() + "\" id=\"new_surname");
             html = replaceToValue(html, "id=\"new_email\"", user.getEmail() + "\" id=\"new_email");
-            
+
             String path = user.getAvatarURL();
             if (path != null || !path.isEmpty() || !Objects.equals(path, "./defaultImage.png")) {
                 html = html.replaceAll("/defaultImage.png", path);
@@ -56,7 +57,7 @@ public class UsuarioService extends Service {
         } catch (Exception e) {
             html = "Página não encontrada 404";
         }
-        
+
         return html;
     }
 
@@ -94,4 +95,49 @@ public class UsuarioService extends Service {
         return html;
     }
 
+    private String getLoginPage(Request request, String erro) {
+        String html = "";
+
+        try {
+            html = getFile("login.html", erro, 0);
+            html = replaceToValue(html, "id=\"email\"", request.queryParams("email") + "\" id=\"email");
+            html = replaceToValue(html, "id=\"senha\"", request.queryParams("senha") + "\" id=\"senha");
+        } catch (Exception e) {
+            html = "Página não encontrada 404";
+        }
+
+        return html;
+    }
+
+    public Object recover(Request request, Response response) {
+        Usuario user = null;
+
+        try {
+            user = dao.getByEmail(request.queryParams("email"));
+            if (user == null) {
+                return getLoginPage(request, "E-mail não encontrado.");
+            } else if (!user.getSenha().equals(UsuarioDAO.toMD5(request.queryParams("senha")))) {
+                return getLoginPage(request, "A senha está errada.");
+            }
+
+            return getProfilePage(user);
+        } catch (SQLException e) {
+            return "Banco de dados não conectado.";
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+
+    }
+
+    public Object update (Request request, Response response) {
+        Usuario user = null;
+
+        try {
+            user = dao.getByID(Integer.parseInt(request.queryParams("id")));
+            user.setNome(request.queryParams("nome"));
+            user.setSobrenome(request.queryParams("id"));
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
 }

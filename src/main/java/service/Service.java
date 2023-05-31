@@ -28,6 +28,7 @@ public class Service {
 
         html = html.replaceAll("\\./", "/");
         replaceToValue(html, "value=\"-1\"", id);
+        html = html.replaceAll("valorId", id + "");
         html = html.replaceAll("class=\"erro\">", "class=\"erro\">" + erro + "");
 
         return html;

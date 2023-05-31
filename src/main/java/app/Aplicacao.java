@@ -26,6 +26,7 @@ public class Aplicacao {
 
         // ======== Cadastro e Login ==========
         post("/new-user", (request, response) -> usuarioService.create(request, response));
+        post("/user", (request, response) -> usuarioService.recover(request, response));
 
         // ====================
 

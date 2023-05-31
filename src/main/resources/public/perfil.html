@@ -88,7 +88,8 @@
     </section>
   </main>
   <section class="pop_up_perfil">
-    <form id="perfil_password_form" action="http://localhost:6789/user/update/senha" method="post">
+    <form id="perfil_password_form" action="http://localhost:6789/user/changePassword" method="post">
+      <p style="margin-bottom: 1%;" class="erro"></p>
       <input type="hidden" name="id" value="-1">
       <label for="password">Senha atual</label>
       <input type="password" name="password" id="password" required />

@@ -54,10 +54,10 @@ public class UsuarioService extends Service {
         return getProfilePage(user, "");
     }
 
-    private String getProfilePage(Usuario user, String erro) {
+    private String getProfilePage(Usuario user, String mensagem) {
         String html = null;
         try {
-            html = getFile("perfil.html", erro, user.getId());
+            html = getFile("perfil.html", mensagem, user.getId());
 
             html = html.replaceAll(">Nome", ">" + user.getNome());
             html = html.replaceAll(">Sobrenome", ">" + user.getSobrenome());
@@ -164,5 +164,22 @@ public class UsuarioService extends Service {
         }
 
         return html;
+    }
+
+    public Object updatePassword (Request request, Response response) {
+        Usuario user = null;
+        try {
+            user = dao.getByID(Integer.parseInt(request.queryParams("id")));
+            if (!user.getSenha().equals(UsuarioDAO.toMD5(request.queryParams("password")))) {
+                return getProfilePage(user, "A senha informada anteriormente está incorreta.");
+            }
+
+            user.setSenha(UsuarioDAO.toMD5(request.queryParams("new_password")));
+            dao.update(user);
+            return getProfilePage(user, "Senha alterada com sucesso!");
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        
     }
 }

@@ -29,7 +29,7 @@ public class Aplicacao {
         post("/user", (request, response) -> usuarioService.recover(request, response));
 
         post("/user/changeInformation", (request, response) -> usuarioService.update(request, response));
-
+        post("/user/changePassword", (request, response) -> usuarioService.updatePassword(request, response));
         // ====================
 
         get("/desenhar", (request, response) -> desenhoService.getDes(request, response));

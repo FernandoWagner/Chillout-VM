@@ -20,7 +20,7 @@ public class CorDAO  extends  DAO{
     public boolean insert(Cor cor){
         boolean status = false;
         try {
-            String sql = "INSERT INTO cor (nome, hex, user_id, num_uso) "
+            String sql = "INSERT INTO chillout.cor (cor_nome, cor_valor_hex, cor_id_usuario, cor_num_uso) "
                     + "VALUES ('" + cor.getNome() + "', '"
                     + cor.getHex() + "', "
                     + cor.getOwnerId() + ", "
@@ -40,11 +40,11 @@ public class CorDAO  extends  DAO{
 
         try {
             Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            String sql = "SELECT * FROM cor WHERE id="+id;
+            String sql = "SELECT * FROM chillout.cor WHERE cor_id = "+id;
             ResultSet rs = st.executeQuery(sql);
             if(rs.next()){
-                cor = new Cor(rs.getInt("id"), rs.getString("nome"), rs.getString("hex"),
-                        rs.getInt("user_id"), rs.getInt("num_uso"));
+                cor = new Cor(rs.getInt("cor_id"), rs.getString("cor_nome"), rs.getString("cor_valor_hex"),
+                        rs.getInt("cor_id_usuario"), rs.getInt("cor_num_uso"));
             }
             st.close();
         } catch (Exception e) {
@@ -58,7 +58,7 @@ public class CorDAO  extends  DAO{
     }
 
     public List<Cor> getOrderByNome(){
-        return get("nome");
+        return get("cor_nome");
     }
 
     private List<Cor> get(String orderBy) {
@@ -66,11 +66,11 @@ public class CorDAO  extends  DAO{
 
         try {
             Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            String sql = "SELECT * FROM cor" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
+            String sql = "SELECT * FROM chillout.cor" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()) {
-                Cor c = new Cor(rs.getInt("id"), rs.getString("nome"), rs.getString("hex"),
-                        rs.getInt("user_id"), rs.getInt("num_uso"));
+                Cor c = new Cor(rs.getInt("cor_id"), rs.getString("cor_nome"), rs.getString("cor_valor_hex"),
+                        rs.getInt("cor_id_usuario"), rs.getInt("cor_num_uso"));
                 cores.add(c);
             }
             st.close();
@@ -83,10 +83,10 @@ public class CorDAO  extends  DAO{
     public boolean update(Cor cor) {
         boolean status = false;
         try {
-            String sql = "UPDATE cor SET nome = '" + cor.getNome() + "', "
-                    + "hex = '" + cor.getHex() + "', "
-                    + "user_id = " + cor.getOwnerId() + " "
-                    + "WHERE id = " + cor.getID();
+            String sql = "UPDATE chillout.cor SET cor_nome = '" + cor.getNome() + "', "
+                    + "cor_valor_hex = '" + cor.getHex() + "', "
+                    + "cor_id_usuario = " + cor.getOwnerId() + " "
+                    + "WHERE cor_id = " + cor.getID();
             PreparedStatement st = conexao.prepareStatement(sql);
             st.executeUpdate();
             st.close();
@@ -101,7 +101,7 @@ public class CorDAO  extends  DAO{
         boolean status = false;
         try {
             Statement st = conexao.createStatement();
-            st.executeUpdate("DELETE FROM cor WHERE id = " + id);
+            st.executeUpdate("DELETE FROM chillout.cor WHERE cor_id = " + id);
             st.close();
             status = true;
         } catch (SQLException u) {

@@ -23,7 +23,7 @@ public class DesenhoDAO extends DAO{
     public boolean insert(Desenho desenho){
         boolean status = false;
         try {
-            String sql = "INSERT INTO desenho (padrao, iddono) "
+            String sql = "INSERT INTO chillout.desenho (des_padrao, des_id_usuario) "
                     + "VALUES ('"
                     + desenho.getPadraoDesenho() + "', "
                     + desenho.getIdDono() + ");";
@@ -43,11 +43,11 @@ public class DesenhoDAO extends DAO{
 
         try {
             Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            String sql = "SELECT * FROM desenho WHERE id="+id;
+            String sql = "SELECT * FROM chillout.desenho WHERE des_id="+id;
             ResultSet rs = st.executeQuery(sql);
             if(rs.next()){
-                desenho = new Desenho(rs.getInt("id"), rs.getString("padrao"),
-                        rs.getInt("iddono"));
+                desenho = new Desenho(rs.getInt("des_id"), rs.getString("des_padrao"),
+                        rs.getInt("des_id_usuario"));
             }
             st.close();
         } catch (Exception e) {
@@ -61,7 +61,7 @@ public class DesenhoDAO extends DAO{
     }
 
     public List<Desenho> getOrderById(){
-        return get("id");
+        return get("des_id");
     }
 
     private List<Desenho> get(String orderBy) {
@@ -69,11 +69,11 @@ public class DesenhoDAO extends DAO{
 
         try {
             Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            String sql = "SELECT * FROM desenho" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
+            String sql = "SELECT * FROM chillout.desenho" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()) {
-                Desenho d = new Desenho(rs.getInt("id"), rs.getString("padrao"),
-                        rs.getInt("iddono"));
+                Desenho d = new Desenho(rs.getInt("des_id"), rs.getString("des_padrao"),
+                        rs.getInt("des_id_usuario"));
                 desenhos.add(d);
             }
             st.close();
@@ -86,9 +86,9 @@ public class DesenhoDAO extends DAO{
     public boolean update(Desenho desenho) {
         boolean status = false;
         try {
-            String sql = "UPDATE desenho SET padrao = '" + desenho.getPadraoDesenho() + "', "
-                    + "iddono = " + desenho.getIdDono() + " "
-                    + "WHERE id = " + desenho.getIdDesenho();
+            String sql = "UPDATE chillout.desenho SET des_padrao = '" + desenho.getPadraoDesenho() + "', "
+                    + "des_id_usuario = " + desenho.getIdDono() + " "
+                    + "WHERE des_id = " + desenho.getIdDesenho();
             PreparedStatement st = conexao.prepareStatement(sql);
             st.executeUpdate();
             st.close();
@@ -103,7 +103,7 @@ public class DesenhoDAO extends DAO{
         boolean status = false;
         try {
             Statement st = conexao.createStatement();
-            st.executeUpdate("DELETE FROM desenho WHERE id = " + id);
+            st.executeUpdate("DELETE FROM chillout.desenho WHERE des_id = " + id);
             st.close();
             status = true;
         } catch (SQLException u) {

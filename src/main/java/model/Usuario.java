@@ -8,6 +8,9 @@ public class Usuario {
     private String senha;
     private String avatarURL;
 
+    public Usuario (Usuario that) {
+        this(that.id, that.nome, that.sobrenome, that.email, that.senha, that.avatarURL);
+    }
     public Usuario (String nome, String sobrenome, String email, String senha, String avatarURL) {
         this(0, nome, sobrenome, email, senha, avatarURL);
     }

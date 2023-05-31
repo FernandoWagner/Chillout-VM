@@ -99,7 +99,8 @@
         <span id="close_pass" class="material-symbols-outlined">close</span>
       </button>
     </form>
-    <form id="perfil_name_form" action="http://localhost:6789/user/update" method="post">
+    <form id="perfil_name_form" action="http://localhost:6789/user/changeInformation" method="post">
+      <p style="margin-bottom: 1%;" class="erro"></p>
       <input type="hidden" name="id" value="-1">
       <label for="new_name">Novo nome</label>
       <input type="text" name="new_name" id="new_name" required />

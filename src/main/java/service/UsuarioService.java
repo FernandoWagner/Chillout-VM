@@ -36,10 +36,28 @@ public class UsuarioService extends Service {
         return html;
     }
 
+    private String getLoginPage(Request request, String erro) {
+        String html = "";
+
+        try {
+            html = getFile("login.html", erro, 0);
+            html = replaceToValue(html, "id=\"email\"", request.queryParams("email") + "\" id=\"email");
+            html = replaceToValue(html, "id=\"senha\"", request.queryParams("senha") + "\" id=\"senha");
+        } catch (Exception e) {
+            html = "Página não encontrada 404";
+        }
+
+        return html;
+    }
+    
     private String getProfilePage(Usuario user) {
+        return getProfilePage(user, "");
+    }
+
+    private String getProfilePage(Usuario user, String erro) {
         String html = null;
         try {
-            html = getFile("perfil.html", user.getId());
+            html = getFile("perfil.html", erro, user.getId());
 
             html = html.replaceAll(">Nome", ">" + user.getNome());
             html = html.replaceAll(">Sobrenome", ">" + user.getSobrenome());
@@ -59,6 +77,7 @@ public class UsuarioService extends Service {
         }
 
         return html;
+        
     }
 
     public Object create(Request request, Response response) {
@@ -95,20 +114,6 @@ public class UsuarioService extends Service {
         return html;
     }
 
-    private String getLoginPage(Request request, String erro) {
-        String html = "";
-
-        try {
-            html = getFile("login.html", erro, 0);
-            html = replaceToValue(html, "id=\"email\"", request.queryParams("email") + "\" id=\"email");
-            html = replaceToValue(html, "id=\"senha\"", request.queryParams("senha") + "\" id=\"senha");
-        } catch (Exception e) {
-            html = "Página não encontrada 404";
-        }
-
-        return html;
-    }
-
     public Object recover(Request request, Response response) {
         Usuario user = null;
 
@@ -131,13 +136,33 @@ public class UsuarioService extends Service {
 
     public Object update (Request request, Response response) {
         Usuario user = null;
-
+        String html = "";
         try {
             user = dao.getByID(Integer.parseInt(request.queryParams("id")));
-            user.setNome(request.queryParams("nome"));
-            user.setSobrenome(request.queryParams("id"));
+
+            Usuario updatedUser = new Usuario(user);
+            updatedUser.setNome(request.queryParams("new_name"));
+            updatedUser.setSobrenome(request.queryParams("new_surname"));
+            updatedUser.setEmail(request.queryParams("new_email"));
+
+            dao.update(updatedUser);
+            html = getProfilePage(updatedUser);
+        } catch (SQLException e) {
+            String message = e.getMessage();
+
+            if (message.contains("unique")) {
+                html = getProfilePage(user, "O e-mail informado anteriormente já foi utilizado.");
+            } else if (message.contains("email")) {
+                html = getProfilePage(user, "O e-mail informado anteriormente é inválido.");
+            } else if (message.contains("user_nome")) {
+                html = getProfilePage(user, "O nome informado anteriormente não é valido.");
+            } else {
+                html = getProfilePage(user, "O sobrenome informado anteriormente não é válido");
+            }
         } catch (Exception e) {
-            // TODO: handle exception
+            html = e.getMessage();
         }
+
+        return html;
     }
 }

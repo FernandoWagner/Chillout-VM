@@ -24,9 +24,11 @@ public class Aplicacao {
         externalStaticFileLocation(
                 "\\\\wsl.localhost\\Ubuntu\\home\\andre\\programs\\bancoDados\\Chillout-VM\\src\\main\\resources\\public");
 
-        // ======== Cadastro e Login ==========
+        // ======== Cadastro, Login e Página de Perfil ==========
         post("/new-user", (request, response) -> usuarioService.create(request, response));
         post("/user", (request, response) -> usuarioService.recover(request, response));
+
+        post("/user/changeInformation", (request, response) -> usuarioService.update(request, response));
 
         // ====================
 

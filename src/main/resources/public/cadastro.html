@@ -19,22 +19,22 @@
   <section class="cadastro">
     <div class="cadastro_form_container">
       <h1 class="cadastro_title">Seja bem-vindo(a)!</h1>
-      <form id="cadastro_form" onsubmit="addIdToPath('cadastro_form', 'http://localhost:6789/new-user')" method="post">
-        <p class="erro"></p>
+      <form id="cadastro_form" action ="http://localhost:6789/new-user" method="post">
+        <p style="margin-bottom: 1%;" class="erro"></p>
         <label for="name">Nome</label>
-        <input type="text" id="name" name="name" required />
+        <input type="text" id="name" name="name" substituirNome required />
 
         <label for="surname">Sobrenome</label>
-        <input type="text" id="surname" name="surname" required />
+        <input type="text" id="surname" name="surname" substituirSobrenome required />
         
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
+        <input type="email" id="email" name="email" substituirEmail required />
 
         <label for="senha">Senha</label>
-        <input type="password" id="senha_cadastro" name="senha" required />
+        <input type="password" id="senha" name="senha" substituirSenha required />
 
         <label for="senha_confirm">Confirmar senha</label>
-        <input type="password" id="senha_confirm" name="senha_confirm" required />
+        <input type="password" id="confirm" name="confirm" required />
 
         <input class="btn_cadastrar" type="submit" value="Enviar" />
       </form>

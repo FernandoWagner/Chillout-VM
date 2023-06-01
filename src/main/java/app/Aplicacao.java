@@ -43,7 +43,9 @@ public class Aplicacao {
         post("/user/changePassword", (request, response) -> usuarioService.updatePassword(request, response));
         
         post("/get-user", (request, response) -> usuarioService.setProfilePictureID(request, response));
-        post("/changeImg", (request, response) -> usuarioService.updateProfilePicture(request, response));
+        post("/user/changeImg", (request, response) -> usuarioService.updateProfilePicture(request, response));
+
+        post("/user/delete", (request, response) -> usuarioService.delete(request, response));
         // ====================
         get("/desenhar", (request, response) -> desenhoService.getDes(request, response));
 

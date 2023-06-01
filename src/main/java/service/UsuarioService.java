@@ -15,7 +15,7 @@ import spark.*;
 public class UsuarioService extends Service {
     private UsuarioDAO dao = new UsuarioDAO();
     private int profilePictureID;
-    private String complementaryPath = "assets/profilePicture/";
+    private String complementaryPath = "/assets/profilePicture/";
 
     /**
      * @param diretorio Caminho de resources/public no seu computador.
@@ -74,7 +74,7 @@ public class UsuarioService extends Service {
             html = replaceToValue(html, "id=\"new_email\"", user.getEmail() + "\" id=\"new_email");
 
             String path = user.getAvatarURL();
-            if (path != null || !path.isEmpty() || !Objects.equals(path, "./defaultImage.png")) {
+            if (path != null && !path.isEmpty() && !Objects.equals(path, "./defaultImage.png")) {
                 html = html.replaceAll("/assets/Perfil-Image-Default.png", path);
             }
 
@@ -188,6 +188,27 @@ public class UsuarioService extends Service {
         }
     }
 
+    public Object delete(Request request, Response response) {
+        String html = "";
+        try {
+            deleteProfilePicture(request);
+            dao.delete(Integer.parseInt(request.queryParams("id")));
+
+            html = "<!DOCTYPE html>\n"
+                    + "<html>\n"
+                    + "<head>\n"
+                    + "  <meta http-equiv=\"refresh\" content=\"0;url=http://localhost:6789/\">\n"
+                    + "</head>\n"
+                    + "<body>\n"
+                    + "</body>\n"
+                    + "</html>";
+        } catch (NumberFormatException | SQLException e) {
+            html = "Erro de conexão com o banco de dados.";
+        }
+
+        return html;
+    }
+
     // ======= Profile Picture Management =========
 
     public Object setProfilePictureID(Request request, Response response) {
@@ -198,7 +219,8 @@ public class UsuarioService extends Service {
         return (new String("Id adquirida com sucesso!"));
     }
 
-    private Usuario createProfilePicture(Usuario user, Request request) throws SQLException, IOException, ServletException {
+    private Usuario createProfilePicture(Usuario user, Request request)
+            throws SQLException, IOException, ServletException {
         user.setAvatarURL(this.complementaryPath + this.profilePictureID + ".png");
 
         InputStream fileInputStream = request.raw().getPart("alterate_image").getInputStream();
@@ -223,7 +245,30 @@ public class UsuarioService extends Service {
         } catch (ServletException e) {
             html = "Houve um erro ao submeter a imagem.";
         }
-        
+
         return html;
+    }
+
+    private boolean deleteProfilePicture(Request request) {
+        Usuario user = null;
+
+        try {
+            user = dao.getByID(Integer.parseInt(request.queryParams("id")));
+            if (user.getAvatarURL().isEmpty()) {
+                return false;
+            }
+
+            Path filePath = Paths.get(this.path + user.getAvatarURL());
+            Files.deleteIfExists(filePath);
+            return true;
+        } catch (NumberFormatException | SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return false;
     }
 }

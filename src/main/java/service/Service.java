@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Scanner;
 
 public class Service {
-    private String path;
+    protected String path;
 
     protected Service(String path) {
         this.path = path;

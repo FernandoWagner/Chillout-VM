@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./assets/FavIcon.svg" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@700" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles/style.css" />
+  <link rel="stylesheet" href="./styles/header.css" />
+  <link rel="stylesheet" href="./styles/perfil.css" />
+  <title>Chillout | Perfil</title>
+</head>
+
+<body>
+  <header>
+    <div class="logo"><img src="./assets/Logo.svg" alt="logo" /></div>
+    <nav>
+      <ul class="menu">
+        <li class="menu_opcao"><a href="./index.html">Home</a></li>
+        <li class="menu_opcao">
+          <form id="to-do" action="http://localhost:6789/lista" method="post">
+            <input type="hidden" name="id" value="-1">
+            <a style="cursor: pointer;">To-Do</a>
+          </form>
+        </li>
+        <li class="menu_opcao">
+          <a href="http://localhost:6789/desenhar/valorId">Desenhar</a>
+        </li>
+        <li class="menu_opcao">
+          <a href="http://localhost:6789/cor/valorId">Paleta</a>
+        </li>
+      </ul>
+    </nav>
+    <button class="btn_logado">
+      <span class="material-symbols-outlined">person</span>
+    </button>
+  </header>
+  <main class="main_alterado">
+    <section class="perfil_image">
+      <img src="./assets/Perfil-Image-Default.png" alt="" />
+      <div class="alterate_image_container">
+        <span href="#" class="alterate_image">
+          <span class="material-symbols-outlined">edit</span>
+          Alterar foto de perfil:
+        </span>
+        <form id="user-id">
+          <input type="hidden" name="id" value="-1">
+        </form>
+        <form id="image_form" action="http://localhost:6789/user/changeImg" method="post"
+          enctype="multipart/form-data">
+          <input type="file" name="alterate_image" id="alterate_image" accept=".png" maxlength="5000000" />
+        </form>
+      </div>
+    </section>
+    <section class="infos">
+      <div class="username_container_perfil">
+        <h1 class="username_perfil">Nome</h1>
+        <h1 class="usersurname_perfil">Sobrenome</h1>
+        <h4 class="useremail_perfil">Email</h4>
+        <span class="material-symbols-outlined">edit</span>
+      </div>
+      <div class="query_container_perfil">
+        <a href="#" class="query alterate_password">Alterar senha
+          <span class="material-symbols-outlined">password</span></a>
+        <a href="#" class="query delete_account">Excluir conta
+          <span class="material-symbols-outlined">delete_forever</span></a>
+      </div>
+      <ul class="tools_perfil">
+        <form id="minhas-listas" action="http://localhost:6789/lista" method="post" class="tool_perfil todo">
+          <input type="hidden" name="id" value="-1">
+          <span class="material-symbols-outlined">list</span>
+          <span class="link_perfil_todo">Minhas listas</span>
+        </form>
+        <a href="#" class="tool_perfil draw">
+          <span class="material-symbols-outlined">draw</span>
+          <span class="link_perfil_draw">Desenhar</span>
+        </a>
+        <a href="#" class="tool_perfil palette">
+          <span class="material-symbols-outlined">palette</span>
+          <span class="link_perfil_palette">Minha paleta</span>
+        </a>
+      </ul>
+    </section>
+  </main>
+  <section class="pop_up_perfil">
+    <form id="perfil_password_form" action="http://localhost:6789/user/changePassword" method="post">
+      <p style="margin-bottom: 1%;" class="erro"></p>
+      <input type="hidden" name="id" value="-1">
+      <label for="password">Senha atual</label>
+      <input type="password" name="password" id="password" required />
+      <label for="new_password">Nova senha</label>
+      <input type="password" name="new_password" id="new_password" required />
+      <button class="btn_update_password" type="submit">Alterar senha</button>
+      <button class="btn_close_password_form" type="button">
+        <span id="close_pass" class="material-symbols-outlined">close</span>
+      </button>
+    </form>
+    <form id="perfil_name_form" action="http://localhost:6789/user/changeInformation" method="post">
+      <p style="margin-bottom: 1%;" class="erro"></p>
+      <input type="hidden" name="id" value="-1">
+      <label for="new_name">Novo nome</label>
+      <input type="text" name="new_name" id="new_name" required />
+      <label for="new_surname">Novo sobrenome</label>
+      <input type="text" name="new_surname" id="new_surname" required />
+      <label for="new_email">Novo email</label>
+      <input type="text" name="new_email" id="new_email" required />
+
+      <button class="btn_update_name" type="submit">Alterar perfil</button>
+      <button class="btn_close_name_form" type="button">
+        <span id="close_name" class="material-symbols-outlined">close</span>
+      </button>
+    </form>
+    <form id="perfil_delete_form" action="http://localhost:6789/user/delete" method="post">
+      <label for="id">Deseja excluir sua conta?</label>
+      <input type="hidden" name="id" id="id" value="-1">
+      <input type="submit" name="delete" id="delete" value="Sim" required />
+      <button class="btn_close_del_form" type="button">
+        <span id="close_del" class="material-symbols-outlined">close</span>
+      </button>
+    </form>
+  </section>
+
+  <script src="./scripts/main.js"></script>
+  <script src="./scripts/perfil.js"></script>
+</body>
+
+</html>

@@ -177,7 +177,7 @@ section {
 
 .buttons .del_drawing {
   background: #e02020;
-  border: 1px solid var(--second-color);
+  display: flex;
   transition: 0.3s;
   width: 100%;
   color: #fff;
@@ -188,6 +188,8 @@ section {
   margin-bottom: 13px;
   border-radius: 4px;
   cursor: pointer;
+  justify-content: center;
+  text-decoration: none;
 }
 
 .buttons .save_drawing:hover,

@@ -1,36 +1,37 @@
 package model;
 
 public class DefinicaoListaTarefas {
-    private int id_usuario;
-    private int id_lista;
+    private int idUsuario;
+    private int idLista;
 
-    public DefinicaoListaTarefas(){
-        id_lista = -1;
-        id_usuario = -1;
-    }
-    public DefinicaoListaTarefas(int id_lista, int id_usuario){
-        this.id_usuario = id_usuario;
-        this.id_lista = id_lista;
+    public DefinicaoListaTarefas() {
+        idLista = -1;
+        idUsuario = -1;
     }
 
-    public int getId_usuario() {
-        return id_usuario;
+    public DefinicaoListaTarefas(int idUsuario, int idLista) {
+        this.idUsuario = idUsuario;
+        this.idLista = idLista;
     }
 
-    public void setId_usuario(int id_usuario) {
-        this.id_usuario = id_usuario;
+    public int getIdUsuario() {
+        return idUsuario;
     }
 
-    public int getId_lista() {
-        return id_lista;
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
-    public void setId_lista(int id_lista) {
-        this.id_lista = id_lista;
+    public int getIdLista() {
+        return idLista;
+    }
+
+    public void setIdLista(int idLista) {
+        this.idLista = idLista;
     }
 
     @Override
-    public String toString(){
-        return "idUsuario: " + id_usuario + "   idLista: " + id_lista;
+    public String toString() {
+        return "idUsuario: " + idUsuario + "   idLista: " + idLista;
     }
 }

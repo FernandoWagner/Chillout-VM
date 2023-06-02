@@ -2,12 +2,15 @@ const btnLogin = document.querySelector(".btn_login");
 const btnCloseLogin = document.querySelector(".close_login");
 const btnCloseCadastro = document.querySelector(".close_cadastro");
 const btnCloseCadastroList = document.querySelector(".btn_close_list_cadastro");
+const btnCloseCadastroTask = document.querySelector(".btn_close_task_cadastro");
 const btnCadastroList = document.querySelector(".btn_add_list");
+const btnCadastroTask = document.querySelector(".btn_add_task");
 const linkCadastro = document.querySelector(".link_cadastro");
 const main = document.querySelector("main");
 const loginScreen = document.querySelector(".login");
 const cadastroScreen = document.querySelector(".cadastro");
 const cadastroListScreen = document.querySelector(".list_cadastro");
+const taskListScreen = document.querySelector(".task_cadastro");
 
 btnLogin.addEventListener("click", () => {
   switchScreens(loginScreen, main);

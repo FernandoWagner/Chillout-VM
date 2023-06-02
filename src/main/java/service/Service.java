@@ -6,6 +6,9 @@ import java.util.Scanner;
 public class Service {
     protected String path;
 
+    protected Service() {
+    }
+
     protected Service(String path) {
         this.path = path;
     }
@@ -19,7 +22,7 @@ public class Service {
     }
 
     protected String getFile(String complementaryPath, String fileName, String erro, int id) throws Exception {
-        Scanner file = new Scanner(new File(this.path + complementaryPath + fileName));
+        Scanner file = new Scanner(new File(complementaryPath + fileName));
 
         String html = "";
         while (file.hasNextLine()) {

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" href="./assets/FavIcon.svg" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@700" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles/style.css" />
+  <link rel="stylesheet" href="./styles/header.css" />
+  <link rel="stylesheet" href="./styles/todo.css" />
+  <title>Chillout | To-Do</title>
+</head>
+
+<body>
+  <header>
+    <div class="logo"><img src="./assets/Logo.svg" alt="logo" /></div>
+    <nav>
+      <ul class="menu">
+        <li class="menu_opcao"><a href="./index.html">Home</a></li>
+        <li class="menu_opcao"><a href="#" class="active">To-Do</a></li>
+        <li class="menu_opcao"><a href="./draw.html">Desenhar</a></li>
+        <li class="menu_opcao"><a href="./paleta.html">Paleta</a></li>
+      </ul>
+    </nav>
+    <a href="./login.html" class="btn_login">Entrar</a>
+  </header>
+  <main class="main_alterado">
+    <section class="infos_left">
+      <div class="lists">
+        <h3 class="lists_title" style="text-align: center;">Minhas Listas:</h3>
+        <ul class="lists_itens" id="lists">
+          <span class="material-symbols-outlined" style="text-align: center;">emoticon</span>
+          <button class="btn_add_list" id="btn_add_list" style="height: 40px; width: 40px;">
+            <span class="material-symbols-outlined" style="text-align: center;">add</span>
+          </button>
+        </ul>
+      </div>
+      <div class="subtitle">
+        <h4 class="subtitle_title">Legenda:</h4>
+        <ul class="subtitle_itens">
+          <li class="subtitle_item">
+            <div class="subtitle_circle c1"></div>
+            Não Urgente
+          </li>
+          <li class="subtitle_item">
+            <div class="subtitle_circle c2"></div>
+            Pouco Urgente
+          </li>
+          <li class="subtitle_item">
+            <div class="subtitle_circle c3"></div>
+            Urgente
+          </li>
+        </ul>
+      </div>
+    </section>
+    <section class="list">
+      <img src="./assets/Man-Notebook-Image.png" alt="Personagem segurando notebook" class="list_empty_image" />
+      <div class="tasks_list">
+        <!--Add task-->
+      </div>
+    </section>
+  </main>
+  <section class="list_cadastro">
+    <form id="list_cadastro_form" action="http://localhost:6789/lista" method="post">
+      <label for="title" style="margin: 1%;">Defina o título da nova lista de tarefas</label>
+      <p style="margin-left: 3%; margin-bottom: 1%;" class="erro"></p>
+      <input type="text" name="title" id="title" required />
+      <button class="btn_create_list" type="submit">Criar Lista</button>
+      <button class="btn_close_list_cadastro" type="button">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </form>
+  </section>
+  <section class="task_cadastro">
+    <form id="task_cadastro_form" action="http://localhost:6789/lista" method="post">
+      <h2 style="color: #fefee3; font-size: xxx-large; margin-bottom: 10px;">Criar nova Tarefa</h2>
+      <label class="urgency">Urgência</label>
+      <select name="urgency">
+        <option class="nao-emergencia" value="nao-emergencia">
+          Não Urgente
+        </option>
+        <option class="pouca-emergencia" value="pouca-emergencia">
+          Pouco Urgente
+        </option>
+        <option class="emergencia" value="emergencia">Urgente</option>
+      </select>
+      <label class="description" for="description_task">Descrição</label>
+      <p style="margin-left: 3%; margin-bottom: 1%;" class="erro"></p>
+      <input type="text" id="description_task" required />
+      <button class="btn_create_task" type="submit">Criar Tarefa</button>
+      <button class="btn_close_task_cadastro" type="button">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </form>
+  </section>
+  <script src="./scripts/main.js"></script>
+  <script src="./scripts/todo.js"></script>
+</body>
+
+</html>

@@ -22,7 +22,7 @@ public class Service {
     }
 
     protected String getFile(String complementaryPath, String fileName, String erro, int id) throws Exception {
-        Scanner file = new Scanner(new File(complementaryPath + fileName));
+        Scanner file = new Scanner(new File(path + fileName));
 
         String html = "";
         while (file.hasNextLine()) {

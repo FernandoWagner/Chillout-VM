@@ -71,9 +71,23 @@ public class DefinicaoListaService extends Service {
         int idLista = Integer.parseInt(request.params(":listaId"));
 
         String html = getToDoPage(idUsuario);
-        html = listaService.getAll(html, idUsuario);
         html = tarefaService.getAll(html, idLista);
+        html = listaService.getAll(html, idUsuario);
         html = listaService.get(html, idLista);
+        return html;
+    }
+
+    public Object deleteTask(Request request, Response response) {
+        int idUsuario = Integer.parseInt(request.params(":id"));
+
+        Tarefa tarefa = new Tarefa(Integer.parseInt(request.params(":listaId")),
+                Integer.parseInt(request.queryParams("urgencia")),
+                request.queryParams("descricao"));
+        
+        String html = getToDoPage(idUsuario);
+        html = tarefaService.delete(html, tarefa);
+        html = listaService.getAll(html, idUsuario);
+        html = listaService.get(html, tarefa.getListaId());
         return html;
     }
 }

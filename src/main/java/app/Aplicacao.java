@@ -58,6 +58,7 @@ public class Aplicacao {
         get(":id/lista", (request, response) -> defService.get(request, response));
         get(":id/lista/:listaId", (request, response) -> defService.getTasks(request, response));
         get(":id/nova-tarefa/:listaId", (request, response) -> defService.createTask(request, response));
+        get(":id/apagar-tarefa/:listaId", (request, response) -> defService.deleteTask(request, response));
         
         // ====================
         get(":userid/desenhar", (request, response) -> desenhoService.getDes(request, response));

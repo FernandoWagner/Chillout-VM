@@ -71,7 +71,7 @@ public class ListaTarefasService extends Service {
             html = html.replaceFirst(noTaskListsText, addTaskList);
             for (ListaTarefas list : array) {
                 html = html.replaceFirst(addTaskList, listTemplate);
-                html = html.replaceFirst("valorId", userId + "");
+                html = html.replaceAll("valorId", userId + "");
                 html = html.replaceFirst("listaId", list.getId() + "");
                 html = html.replaceFirst("Nome da lista", list.getTitulo());
                 html = html.replaceFirst("NumeroTarefas", list.getNumTarefas() + "");

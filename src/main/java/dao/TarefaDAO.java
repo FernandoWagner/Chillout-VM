@@ -44,7 +44,7 @@ public class TarefaDAO extends DAO {
     }
 
     public boolean delete(Tarefa tar) throws SQLException {
-        String sql = "DELETE FROM chillout.tarefa WHERE tar_id_lista = ? AND tar_urgencia = ? AND tar_descricao	 = ?;";
+        String sql = "DELETE FROM chillout.tarefa WHERE tar_id_lista = ? AND tar_urgencia = ? AND tar_descricao	= ? RETURNING 0;";
         System.out.println(sql);
 
         PreparedStatement st = conexao.prepareStatement(sql);

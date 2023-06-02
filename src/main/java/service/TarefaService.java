@@ -20,7 +20,9 @@ public class TarefaService {
                 + "          </span>\n"
                 + "          <div class=\"btns_task_list\">\n"
                 + "            <input type=\"checkbox\" name=\"check\" class=\"check\" />\n"
-                + "            <form>\n"
+                + "            <form action=\"http://localhost:6789/valorId/apagar-tarefa/id_list\">\n"
+                + "              <input type=\"hidden\" name=\"urgencia\" value=\"NumeroUrgencia\">\n"
+                + "              <input type=\"hidden\" name=\"descricao\" value=\"Fazer exercício de BD\">\n"
                 + "              <button class=\"btn_delete_task\">\n"
                 + "                <span class=\"material-symbols-outlined\">delete</span>\n"
                 + "              </button>\n"
@@ -60,8 +62,8 @@ public class TarefaService {
         html = html.replaceFirst(noTasksText, "<h1 class=\"list_title\" style=\"display: inline-block\">Teste</h1>");
         for (Tarefa tar : array) {
             html = html.replaceFirst(addTask, taskTemplate);
-            html = html.replaceFirst("Fazer exercício de BD", tar.getDescricao());
-            html = html.replaceFirst("NumeroUrgencia", tar.getUrgencia() + "");
+            html = html.replaceAll("Fazer exercício de BD", tar.getDescricao());
+            html = html.replaceAll("NumeroUrgencia", tar.getUrgencia() + "");
 
             switch (tar.getUrgencia()) {
                 case 3:
@@ -75,7 +77,7 @@ public class TarefaService {
                     break;
             }
         }
-
+        html = html.replaceAll("id_list", listID + "");
         html = html.replaceFirst(addTask, "<button class=\"btn_add_task\" id=\"btn_add_task\">\n"
                 + "          <span class=\"material-symbols-outlined\">add</span>\n"
                 + "        </button>\n");

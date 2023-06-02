@@ -34,13 +34,7 @@
       <div class="lists">
         <h3 class="lists_title" style="text-align: center;">Minhas Listas:</h3>
         <ul class="lists_itens" id="lists">
-          <a href="http://localhost:6789/valorId/listas/4" class="lista">andre<span class="numero-tarefas" id="btn_add_list">0</span></a>
-<a href="http://localhost:6789/valorId/listas/18" class="lista">sua mae<span class="numero-tarefas" id="btn_add_list">0</span></a>
-<a href="http://localhost:6789/valorId/listas/19" class="lista">sua mae<span class="numero-tarefas" id="btn_add_list">0</span></a>
-<a href="http://localhost:6789/valorId/listas/20" class="lista">sua mae<span class="numero-tarefas" id="btn_add_list">0</span></a>
-<a href="http://localhost:6789/valorId/listas/21" class="lista">sua mae<span class="numero-tarefas" id="btn_add_list">0</span></a>
-<!--Add tasklist-->
-          <a href="http://localhost:6789/33/listas/listaId" class="lista">Nome da lista <span class="numero-tarefas" id="btn_add_list">Numero</span></a>
+          <span class="material-symbols-outlined" style="text-align: center;">emoticon</span>
           <button class="btn_add_list" id="btn_add_list" style="height: 40px; width: 40px;">
             <span class="material-symbols-outlined" style="text-align: center;">add</span>
           </button>
@@ -66,39 +60,13 @@
     </section>
     <section class="list">
       <img src="./assets/Man-Notebook-Image.png" alt="Personagem segurando notebook" class="list_empty_image" />
-      <h1 class="list_title">Teste</h1>
       <div class="tasks_list">
-        <div class="task">
-          <span class="urgency_task_list urgent">1</span><span class="description_task_list">Fazer exercício de
-            BD</span>
-          <div class="btns_task_list">
-            <input type="checkbox" name="check" class="check" />
-            <form>
-              <button class="btn_delete_task">
-                <span class="material-symbols-outlined">delete</span>
-              </button>
-            </form>
-          </div>
-        </div>
-        <div class="task">
-          <span class="urgency_task_list urgent">1</span><span class="description_task_list">Fazer exercício de
-            BD</span>
-          <div class="btns_task_list">
-            <input type="checkbox" name="check" class="check" />
-            <form>
-              <button class="btn_delete_task">
-                <span class="material-symbols-outlined">delete</span>
-              </button>
-            </form>
-          </div>
-        </div>
-        <button class="btn_add_task" id="btn_add_task">
-          <span class="material-symbols-outlined">add</span>
-        </button>
+        <!--Add task-->
+      </div>
     </section>
   </main>
   <section class="list_cadastro">
-    <form id="list_cadastro_form" action="http://localhost:6789/lista" method="post">
+    <form id="list_cadastro_form" action="http://localhost:6789/valorId/nova-lista" method="get">
       <label for="title" style="margin: 1%;">Defina o título da nova lista de tarefas</label>
       <p style="margin-left: 3%; margin-bottom: 1%;" class="erro"></p>
       <input type="text" name="title" id="title" required />
@@ -109,7 +77,7 @@
     </form>
   </section>
   <section class="task_cadastro">
-    <form id="task_cadastro_form" action="http://localhost:6789/lista" method="post">
+    <form id="task_cadastro_form" action="http://localhost:6789/valorId/nova-tarefa/id_lista" method="get">
       <h2 style="color: #fefee3; font-size: xxx-large; margin-bottom: 10px;">Criar nova Tarefa</h2>
       <label class="urgency">Urgência</label>
       <select name="urgency">
@@ -123,7 +91,7 @@
       </select>
       <label class="description" for="description_task">Descrição</label>
       <p style="margin-left: 3%; margin-bottom: 1%;" class="erro"></p>
-      <input type="text" id="description_task" required />
+      <input type="text" id="description_task" name="description_task" required />
       <button class="btn_create_task" type="submit">Criar Tarefa</button>
       <button class="btn_close_task_cadastro" type="button">
         <span class="material-symbols-outlined">close</span>
@@ -135,4 +103,3 @@
 </body>
 
 </html>
-

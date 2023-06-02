@@ -14,7 +14,7 @@ public class TarefaDAO extends DAO {
     }
 
     public boolean create(Tarefa tarefa) throws SQLException {
-        String sql = "INSERT INTO chillout.tarefa (tar_id_lista, tar_urgencia, tar_descricao) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO chillout.tarefa (tar_id_lista, tar_urgencia, tar_descricao) VALUES (?, ?, ?) RETURNING tar_id_lista";
         System.out.println(sql);
 
         PreparedStatement st = conexao.prepareStatement(sql);

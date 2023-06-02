@@ -38,20 +38,20 @@
   <div class="colors_container">
     <div class="colors">
       <CORES>
-      <!--a href="#" class="color">
-        <div class="color_demo min"></div>
-        <span class="color_hex">#000000</span>
-      </a-->
+        <!--a href="#" class="color">
+          <div class="color_demo min"></div>
+          <span class="color_hex">#000000</span>
+        </a-->
     </div>
     <div class="colors_container_btns">
       <a class="add_color" href="./criar">
         <span class="material-symbols-outlined">add_box</span>
         Add Cor
       </a>
-      <a class="suggestion_color" href="./corSugestao">
+      <button class="suggestion_color">
         <span class="material-symbols-outlined">smart_toy</span>
         Sugestão
-      </a>
+      </button>
     </div>
   </div>
   <div class="info_color">
@@ -64,19 +64,19 @@
       </div>
     </div>
     <div class="btns_color">
-      <a class="color_edit" href="#">
+      <button class="color_edit">
         <span class="material-symbols-outlined">edit</span>Editar
-      </a>
-      <a class="color_delete" href="#">
+      </button>
+      <button class="color_delete">
         <span class="material-symbols-outlined">delete</span>Remover
-      </a>
+      </button>
     </div>
   </div>
 </main>
-<section class="add_color_container">
+<section class="add_color_container" style="display:flex">
   <form
           id="add_color_form"
-          action="http://localhost:6789/cores"
+          action="holder"
           method="post"
   >
     <h1 class="add_color_title">Nova cor</h1>
@@ -85,9 +85,9 @@
     <label for="value_color">Cor</label>
     <input type="color" name="value_color" id="value_color" required />
     <button class="btn_cadastrar_color" type="submit">Salvar</button>
-    <button class="btn_close_add_color" type="button">
+    <a class="btn_close_add_color" href="../cor">
       <span class="material-symbols-outlined">close</span>
-    </button>
+    </a>
   </form>
 
   <form
@@ -111,12 +111,12 @@
             required
     />
     <button class="btn_update_color" type="submit">Salvar</button>
-    <button class="btn_close_edit_color" type="button">
+    <a class="btn_close_add_color" href="../cor">
       <span class="material-symbols-outlined">close</span>
-    </button>
+    </a>
   </form>
 
-  <form id="suggestion_form">
+  <form id="suggestion_form" style="display:flex">
     <h1 class="suggestion_color_title">Sugestão de cor</h1>
 
     <div class="SI_content">
@@ -209,9 +209,9 @@
       </div>
     </div>
 
-    <button class="btn_close_suggestion_color" type="button">
+    <a class="btn_close_suggestion_color" href="./cor">
       <span class="material-symbols-outlined">close</span>
-    </button>
+    </a>
   </form>
 </section>
 <script src="../scripts/main.js"></script>

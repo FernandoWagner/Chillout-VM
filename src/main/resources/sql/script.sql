@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS chillout.usuario (
     user_nome VARCHAR(32),
     user_sobrenome VARCHAR(45),
     user_email VARCHAR(320) NOT NULL UNIQUE,
-    user_senha CHAR(45) NOT NULL,
+    user_senha VARCHAR NOT NULL,
     user_avatar_url VARCHAR(2000) DEFAULT './defaultImage.png',
 
     PRIMARY KEY (user_id),
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS chillout.cor (
 -- -------------------------------------------------
 CREATE TABLE IF NOT EXISTS chillout.desenho (
     des_id SERIAL,
-    des_padrao JSON,
+    des_padrao TEXT,
     des_id_usuario INT NOT NULL,
     PRIMARY KEY (des_id),
 

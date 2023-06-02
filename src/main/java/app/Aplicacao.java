@@ -1,6 +1,7 @@
 package app;
 
 import static spark.Spark.*;
+import static spark.Spark.get;
 
 import javax.servlet.MultipartConfigElement;
 
@@ -10,7 +11,7 @@ import service.UsuarioService;
 
 public class Aplicacao {
     private static UsuarioService usuarioService = new UsuarioService(
-            "/home/andre/programs/bancoDados/Chillout-VM/src/main/resources/public/");
+            "C:\\Users\\bosta\\Desktop\\Ciencias\\2_periodo\\TI 2\\Burnout\\Burnout\\src\\main\\resources\\public\\");
     private static CorService corService = new CorService();
     private static DesenhoService desenhoService = new DesenhoService();
 
@@ -26,7 +27,9 @@ public class Aplicacao {
          * funcionam e as páginas demoram a atualizar as alterações.
          */
         externalStaticFileLocation(
-                "\\\\wsl.localhost\\Ubuntu\\home\\andre\\programs\\bancoDados\\Chillout-VM\\src\\main\\resources\\public");
+                "C:\\Users\\bosta\\Desktop\\Ciencias\\2_periodo\\TI 2\\Burnout\\Burnout\\src\\main\\resources\\public\\");
+
+        staticFiles.location("/public");
         
         // Permite receber imagens
         before((request, response) -> {
@@ -47,31 +50,35 @@ public class Aplicacao {
 
         post("/user/delete", (request, response) -> usuarioService.delete(request, response));
         // ====================
-        get("/desenhar", (request, response) -> desenhoService.getDes(request, response));
+        get(":userid/desenhar", (request, response) -> desenhoService.getDes(request, response));
 
-        post("/desenhar/inserir", (request, response) -> desenhoService.insercao(request, response));
+        get(":userid/deleteDesenho/:id", ((request, response) -> desenhoService.delete(request,response)));
 
-        post("/desenhar/atualizar/:id", (request, response) -> desenhoService.update(request, response));
+        post(":userid/desenhar/inserir", (request, response) -> desenhoService.insercao(request, response));
 
-        get("/desenhar/listar", (request, response) -> desenhoService.getAll(request, response));
+        post(":userid/desenhar/atualizar/:id", (request, response) -> desenhoService.update(request, response));
 
-        get("/desenhar/:id", ((request, response) -> desenhoService.get(request, response)));
+        get(":userid/listarDesenhos", (request, response) -> desenhoService.getAll(request, response));
+
+        get(":userid/desenhar/:id", ((request, response) -> desenhoService.get(request, response)));
 
         // ===================
 
-        get("/cor/criar", (request, response) -> corService.getIns(request, response));
+        get(":userid/corSugestao", ((request, response) -> corService.getSI(request,response)));
 
-        post("/cor/inserir", (request, response) -> corService.insercao(request, response));
+        get(":userid/cor/criar", (request, response) -> corService.getIns(request, response));
 
-        get("/cor", (request, response) -> corService.getAll(request, response));
+        post(":userid/cor/inserir", (request, response) -> corService.insercao(request, response));
 
-        get("/cor/:id", (request, response) -> corService.get(request, response));
+        get(":userid/cor", (request, response) -> corService.getAll(request, response));
 
-        get("/cor/delete/:id", (request, response) -> corService.delete(request, response));
+        get(":userid/cor/:id", (request, response) -> corService.get(request, response));
 
-        get("/cor/atualizar/:id", (request, response) -> corService.getToUpdate(request, response));
+        get(":userid/cor/delete/:id", (request, response) -> corService.delete(request, response));
 
-        post("/cor/atualizar/:id", (request, response) -> corService.update(request, response));
+        get(":userid/cor/atualizar/:id", (request, response) -> corService.getToUpdate(request, response));
+
+        post(":userid/cor/atualizar/:id", (request, response) -> corService.update(request, response));
 
     }
 }

@@ -262,10 +262,8 @@ public class UsuarioService extends Service {
             Files.deleteIfExists(filePath);
             return true;
         } catch (NumberFormatException | SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

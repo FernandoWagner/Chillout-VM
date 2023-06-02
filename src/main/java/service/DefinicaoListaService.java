@@ -52,8 +52,8 @@ public class DefinicaoListaService extends Service {
         Tarefa tarefa = new Tarefa(Integer.parseInt(request.params(":listaId")), urgencia,
                 request.queryParams("description_task"));
         String html = getToDoPage(idUsuario);
-        html = listaService.getAll(html, idUsuario);
         html = tarefaService.create(html, tarefa);
+        html = listaService.getAll(html, idUsuario);
         html = listaService.get(html, tarefa.getListaId());
         return html;
     }

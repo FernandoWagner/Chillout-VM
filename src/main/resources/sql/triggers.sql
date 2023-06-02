@@ -1,5 +1,5 @@
 -- -------------------------------------------------
--- Trabalho Interdisciplinar 2 - Grupo 10 - Burnout
+-- Trabalho Interdisciplinar 2 - Grupo 10 - chillout
 -- Integrantes: André Santos Alves, André Scianni,
 -- Carlos Vinícius, Fernando Wagner
 -- -------------------------------------------------
@@ -14,12 +14,12 @@ CREATE FUNCTION update_num_tarefas()
 RETURNS TRIGGER AS $$
 BEGIN
   IF (TG_OP = 'INSERT') THEN
-    UPDATE burnout.lista_tarefas
+    UPDATE chillout.lista_tarefas
     SET lista_num_tarefas = lista_num_tarefas + 1
     WHERE lista_id = NEW.tar_id_lista;
     RETURN NEW;
   ELSIF (TG_OP = 'DELETE') THEN
-    UPDATE burnout.lista_tarefas
+    UPDATE chillout.lista_tarefas
     SET lista_num_tarefas = lista_num_tarefas - 1
     WHERE lista_id = OLD.tar_id_lista;
     RETURN OLD;
@@ -28,7 +28,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER update_num_tarefas_trigger
-BEFORE INSERT OR DELETE ON burnout.tarefa
+BEFORE INSERT OR DELETE ON chillout.tarefa
 FOR EACH ROW
 EXECUTE FUNCTION update_num_tarefas();
 
@@ -52,6 +52,6 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER impedir_novo_num_tarefas_trigger
-BEFORE INSERT OR UPDATE ON burnout.lista_tarefas
+BEFORE INSERT OR UPDATE ON chillout.lista_tarefas
 FOR EACH ROW
 EXECUTE FUNCTION impedir_novo_num_tarefas();

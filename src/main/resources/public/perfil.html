@@ -23,10 +23,7 @@
       <ul class="menu">
         <li class="menu_opcao"><a href="./index.html">Home</a></li>
         <li class="menu_opcao">
-          <form id="to-do" action="http://localhost:6789/lista" method="post">
-            <input type="hidden" name="id" value="-1">
-            <a style="cursor: pointer;">To-Do</a>
-          </form>
+          <a href="http://localhost:6789/valorId/lista">To-Do</a>
         </li>
         <li class="menu_opcao">
           <a href="http://localhost:6789/valorId/desenhar">Desenhar</a>
@@ -71,16 +68,15 @@
           <span class="material-symbols-outlined">delete_forever</span></a>
       </div>
       <ul class="tools_perfil">
-        <form id="minhas-listas" action="http://localhost:6789/lista" method="post" class="tool_perfil todo">
-          <input type="hidden" name="id" value="-1">
+        <a href="http://localhost:6789/valorId/lista" class="tool_perfil todo">
           <span class="material-symbols-outlined">list</span>
           <span class="link_perfil_todo">Minhas listas</span>
         </form>
-        <a href="#" class="tool_perfil draw">
+        <a href="http://localhost:6789/valorId/desenhar" class="tool_perfil draw">
           <span class="material-symbols-outlined">draw</span>
           <span class="link_perfil_draw">Desenhar</span>
         </a>
-        <a href="#" class="tool_perfil palette">
+        <a href="http://localhost:6789/valorId/cor" class="tool_perfil palette">
           <span class="material-symbols-outlined">palette</span>
           <span class="link_perfil_palette">Minha paleta</span>
         </a>

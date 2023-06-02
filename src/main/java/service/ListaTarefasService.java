@@ -23,16 +23,15 @@ public class ListaTarefasService extends Service {
         noTaskListsText = "<span class=\"material-symbols-outlined\" "
                 + "style=\"text-align: center;\">emoticon</span>";
         addTaskList = "<!--Add tasklist-->\n";
-        listTemplate = "<a href=\"http://localhost:6789/valorId/listas/listaId\" "
+        listTemplate = "<a href=\"http://localhost:6789/valorId/lista/listaId\" "
                 + "class=\"lista\">Nome da lista<span class=\"numero-tarefas\" "
                 + "id=\"btn_add_list\">NumeroTarefas</span></a>" + "\n"
                 + addTaskList;
 
     }
 
-    public String create(String html, String title, int userId) {
+    public String create(String html, ListaTarefas list, int userId) {
         try {
-            ListaTarefas list = new ListaTarefas(title);
             dao.create(list);
             DefinicaoListaTarefasDAO def = new DefinicaoListaTarefasDAO();
             def.insert(new DefinicaoListaTarefas(userId, list.getId()));
@@ -51,6 +50,7 @@ public class ListaTarefasService extends Service {
     public String get(String html, int listId) {
         try {
             ListaTarefas list = dao.get(listId);
+            html = html.replaceFirst("id_lista", listId + "");
             return html.replaceFirst("Teste", list.getTitulo());
         } catch (Exception e) {
             return "Não foi possível conectar ao banco de dados.";
@@ -71,6 +71,7 @@ public class ListaTarefasService extends Service {
             html = html.replaceFirst(noTaskListsText, addTaskList);
             for (ListaTarefas list : array) {
                 html = html.replaceFirst(addTaskList, listTemplate);
+                html = html.replaceAll("valorId", userId + "");
                 html = html.replaceFirst("listaId", list.getId() + "");
                 html = html.replaceFirst("Nome da lista", list.getTitulo());
                 html = html.replaceFirst("NumeroTarefas", list.getNumTarefas() + "");

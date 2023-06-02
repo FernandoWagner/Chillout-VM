@@ -6,12 +6,15 @@ import static spark.Spark.get;
 import javax.servlet.MultipartConfigElement;
 
 import service.CorService;
+import service.DefinicaoListaService;
 import service.DesenhoService;
 import service.UsuarioService;
 
 public class Aplicacao {
     private static UsuarioService usuarioService = new UsuarioService(
-            "C:\\Users\\user\\Desktop\\Ciencias\\2_periodo\\TI 2\\Burnout\\Burnout\\src\\main\\resources\\public\\");
+            "/home/andre/programs/bancoDados/Chillout-VM/src/main/resources/public/");
+    private static DefinicaoListaService defService = new DefinicaoListaService(
+            "/home/andre/programs/bancoDados/Chillout-VM/src/main/resources/public/");
     private static CorService corService = new CorService();
     private static DesenhoService desenhoService = new DesenhoService();
 
@@ -20,20 +23,20 @@ public class Aplicacao {
         // ======== Configuração ==========
         port(6789);
 
-        /* Facilita acessar os arquivos.
+        /*
+         * Facilita acessar os arquivos.
          *
          * Substituir a string pelo caminho do projeto no seu computador.
          * Sugiro salvar em uma pasta do Ubuntu, no Windows algumas referências não
          * funcionam e as páginas demoram a atualizar as alterações.
          */
         externalStaticFileLocation(
-                "C:\\Users\\user\\Desktop\\Ciencias\\2_periodo\\TI 2\\Burnout\\Burnout\\src\\main\\resources\\public\\");
+                "\\\\wsl.localhost\\Ubuntu\\home\\andre\\programs\\bancoDados\\Chillout-VM\\src\\main\\resources\\public");
 
-        staticFiles.location("/public");
-        
         // Permite receber imagens
         before((request, response) -> {
-            if (request.raw().getContentType() != null && request.raw().getContentType().startsWith("multipart/form-data")) {
+            if (request.raw().getContentType() != null
+                    && request.raw().getContentType().startsWith("multipart/form-data")) {
                 request.attribute("org.eclipse.jetty.multipartConfig", new MultipartConfigElement("/temp"));
             }
         });
@@ -44,15 +47,23 @@ public class Aplicacao {
 
         post("/user/changeInformation", (request, response) -> usuarioService.update(request, response));
         post("/user/changePassword", (request, response) -> usuarioService.updatePassword(request, response));
-        
+
         post("/get-user", (request, response) -> usuarioService.setProfilePictureID(request, response));
         post("/user/changeImg", (request, response) -> usuarioService.updateProfilePicture(request, response));
 
         post("/user/delete", (request, response) -> usuarioService.delete(request, response));
+
+        // ============= Lista tarefas =========
+        get(":id/nova-lista", (request, response) -> defService.create(request, response));
+        get(":id/lista", (request, response) -> defService.get(request, response));
+        get(":id/lista/:listaId", (request, response) -> defService.getTasks(request, response));
+        get(":id/nova-tarefa/:listaId", (request, response) -> defService.createTask(request, response));
+        get(":id/apagar-tarefa/:listaId", (request, response) -> defService.deleteTask(request, response));
+        
         // ====================
         get(":userid/desenhar", (request, response) -> desenhoService.getDes(request, response));
 
-        get(":userid/deleteDesenho/:id", ((request, response) -> desenhoService.delete(request,response)));
+        get(":userid/deleteDesenho/:id", ((request, response) -> desenhoService.delete(request, response)));
 
         post(":userid/desenhar/inserir", (request, response) -> desenhoService.insercao(request, response));
 
@@ -64,7 +75,7 @@ public class Aplicacao {
 
         // ===================
 
-        get(":userid/corSugestao", ((request, response) -> corService.getSI(request,response)));
+        get(":userid/corSugestao", ((request, response) -> corService.getSI(request, response)));
 
         get(":userid/cor/criar", (request, response) -> corService.getIns(request, response));
 

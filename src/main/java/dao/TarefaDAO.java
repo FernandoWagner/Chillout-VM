@@ -14,7 +14,7 @@ public class TarefaDAO extends DAO {
     }
 
     public boolean create(Tarefa tarefa) throws SQLException {
-        String sql = "INSERT INTO chillout.tarefa (tar_id_lista, tar_urgencia, tar_descricao) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO chillout.tarefa (tar_id_lista, tar_urgencia, tar_descricao) VALUES (?, ?, ?) RETURNING tar_id_lista";
         System.out.println(sql);
 
         PreparedStatement st = conexao.prepareStatement(sql);
@@ -44,7 +44,7 @@ public class TarefaDAO extends DAO {
     }
 
     public boolean delete(Tarefa tar) throws SQLException {
-        String sql = "DELETE FROM chillout.tarefa WHERE tar_id_lista = ? AND tar_urgencia = ? AND tar_descricao	 = ?;";
+        String sql = "DELETE FROM chillout.tarefa WHERE tar_id_lista = ? AND tar_urgencia = ? AND tar_descricao	= ? RETURNING 0;";
         System.out.println(sql);
 
         PreparedStatement st = conexao.prepareStatement(sql);

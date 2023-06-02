@@ -13,14 +13,16 @@ public class TarefaService {
     private String taskTemplate;
 
     public TarefaService() {
-        noTasksText = "<img src=\"./assets/Man-Notebook-Image.png\" alt=\"Personagem segurando notebook\" class=\"list_empty_image\" />";
+        noTasksText = "<img src=\"/assets/Man-Notebook-Image.png\" alt=\"Personagem segurando notebook\" class=\"list_empty_image\" />";
         addTask = "<!--Add task-->\n";
         taskTemplate = "<div class=\"task\">\n"
                 + "          <span class=\"urgency_task_list valorUrgencia\">NumeroUrgencia</span><span class=\"description_task_list\">Fazer exercício de BD\n"
                 + "          </span>\n"
                 + "          <div class=\"btns_task_list\">\n"
                 + "            <input type=\"checkbox\" name=\"check\" class=\"check\" />\n"
-                + "            <form>\n"
+                + "            <form action=\"http://localhost:6789/valorId/apagar-tarefa/id_list\">\n"
+                + "              <input type=\"hidden\" name=\"urgencia\" value=\"NumeroUrgencia\">\n"
+                + "              <input type=\"hidden\" name=\"descricao\" value=\"Fazer exercício de BD\">\n"
                 + "              <button class=\"btn_delete_task\">\n"
                 + "                <span class=\"material-symbols-outlined\">delete</span>\n"
                 + "              </button>\n"
@@ -40,6 +42,7 @@ public class TarefaService {
                         "A descrição deve conter no máximo 280 caracteres.\n"
                                 + "<label class=\"urgency\">Urgência</label>");
             } else {
+                e.printStackTrace();
                 return "Houve um erro conectando ao banco de dados.";
             }
         }
@@ -52,17 +55,18 @@ public class TarefaService {
         try {
             array = dao.getByList(listID);
         } catch (SQLException e) {
+            e.printStackTrace();
             return "Houve um erro conectando ao banco de dados.";
         }
 
         html = html.replaceFirst(noTasksText, "<h1 class=\"list_title\" style=\"display: inline-block\">Teste</h1>");
         for (Tarefa tar : array) {
             html = html.replaceFirst(addTask, taskTemplate);
-            html = html.replaceFirst("Fazer exercício de BD", tar.getDescricao());
-            html = html.replaceFirst("NumeroUrgencia", tar.getUrgencia() + "");
+            html = html.replaceAll("Fazer exercício de BD", tar.getDescricao());
+            html = html.replaceAll("NumeroUrgencia", tar.getUrgencia() + "");
 
             switch (tar.getUrgencia()) {
-                case 1:
+                case 3:
                     html = html.replaceFirst("valorUrgencia", "urgent");
                     break;
                 case 2:
@@ -73,7 +77,7 @@ public class TarefaService {
                     break;
             }
         }
-
+        html = html.replaceAll("id_list", listID + "");
         html = html.replaceFirst(addTask, "<button class=\"btn_add_task\" id=\"btn_add_task\">\n"
                 + "          <span class=\"material-symbols-outlined\">add</span>\n"
                 + "        </button>\n");
@@ -85,6 +89,7 @@ public class TarefaService {
         try {
             dao.delete(tarefa);
         } catch (SQLException e) {
+            e.printStackTrace();
             return "Houve um erro conectando ao banco de dados.";
         }
 

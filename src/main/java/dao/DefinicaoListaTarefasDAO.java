@@ -1,6 +1,6 @@
 package dao;
 
-import model.Cor;
+
 import model.DefinicaoListaTarefas;
 
 import java.sql.PreparedStatement;

@@ -36,6 +36,7 @@ public class UsuarioService extends Service {
             html = replaceToValue(html, replaceText + "Senha", user.getSenha());
 
         } catch (Exception e) {
+            System.out.print(e.getMessage());
             html = "Página não encontrada 404";
         }
 
@@ -50,6 +51,7 @@ public class UsuarioService extends Service {
             html = replaceToValue(html, "id=\"email\"", request.queryParams("email") + "\" id=\"email");
             html = replaceToValue(html, "id=\"senha\"", request.queryParams("senha") + "\" id=\"senha");
         } catch (Exception e) {
+            System.out.print(e.getMessage());
             html = "Página não encontrada 404";
         }
 
@@ -79,6 +81,7 @@ public class UsuarioService extends Service {
             }
 
         } catch (Exception e) {
+            System.out.print(e.getMessage());
             html = "Página não encontrada 404";
         }
 
@@ -128,6 +131,7 @@ public class UsuarioService extends Service {
             if (user == null) {
                 return getLoginPage(request, "E-mail não encontrado.");
             } else if (!user.getSenha().equals(UsuarioDAO.toMD5(request.queryParams("senha")))) {
+                System.out.println("Conversão ficou errada: " + UsuarioDAO.toMD5(request.queryParams("senha")));
                 return getLoginPage(request, "A senha está errada.");
             }
 
@@ -225,6 +229,7 @@ public class UsuarioService extends Service {
 
         InputStream fileInputStream = request.raw().getPart("alterate_image").getInputStream();
         Path filePath = Paths.get(this.path + user.getAvatarURL());
+        System.out.println(filePath.toString());
         Files.copy(fileInputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
         dao.update(user);
 

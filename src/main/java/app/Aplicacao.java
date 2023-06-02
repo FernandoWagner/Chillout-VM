@@ -11,7 +11,7 @@ import service.UsuarioService;
 
 public class Aplicacao {
     private static UsuarioService usuarioService = new UsuarioService(
-            "C:\\Users\\bosta\\Desktop\\Ciencias\\2_periodo\\TI 2\\Burnout\\Burnout\\src\\main\\resources\\public\\");
+            "C:\\Users\\user\\Desktop\\Ciencias\\2_periodo\\TI 2\\Burnout\\Burnout\\src\\main\\resources\\public\\");
     private static CorService corService = new CorService();
     private static DesenhoService desenhoService = new DesenhoService();
 
@@ -27,7 +27,7 @@ public class Aplicacao {
          * funcionam e as páginas demoram a atualizar as alterações.
          */
         externalStaticFileLocation(
-                "C:\\Users\\bosta\\Desktop\\Ciencias\\2_periodo\\TI 2\\Burnout\\Burnout\\src\\main\\resources\\public\\");
+                "C:\\Users\\user\\Desktop\\Ciencias\\2_periodo\\TI 2\\Burnout\\Burnout\\src\\main\\resources\\public\\");
 
         staticFiles.location("/public");
         

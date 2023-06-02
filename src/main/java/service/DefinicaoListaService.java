@@ -12,7 +12,11 @@ public class DefinicaoListaService extends Service {
     private ListaTarefasService listaService = new ListaTarefasService();
     private TarefaService tarefaService = new TarefaService();
 
-    private String getToDoPage (int IdUsuario) {
+    public DefinicaoListaService(String path) {
+        super(path);
+    }
+
+    private String getToDoPage(int IdUsuario) {
         String html = "";
         try {
             html = getFile("todo.html", IdUsuario);
@@ -24,20 +28,52 @@ public class DefinicaoListaService extends Service {
     }
 
     public Object create(Request request, Response response) {
-        DefinicaoListaTarefas def = new DefinicaoListaTarefas(Integer.parseInt(request.queryParams("id")),
-                Integer.parseInt(request.queryParams("listaId")));
+        int id = Integer.parseInt(request.params("id"));
+        String title = request.queryParams("title");
 
-        String html = "";
-        try {
-            dao.insert(def);
-            html = getToDoPage(def.getIdUsuario());
-            html = listaService.create(html, request.queryParams("title"), def.getIdUsuario());
-            html = tarefaService.getAll(html, def.getIdLista());
-            html = listaService.get(html, def.getIdLista());
-        } catch (SQLException e) {
-            html = "Houve um erro conectando ao banco de dados.";
+        ListaTarefas list = new ListaTarefas(title);
+
+        String html = getToDoPage(id);
+        html = listaService.create(html, list, id);
+        return html;
+    }
+
+    public Object createTask(Request request, Response response) {
+        int idUsuario = Integer.parseInt(request.params(":id"));
+        int urgencia;
+        if (request.queryParams("urgency").equals("nao-emergencia")) {
+            urgencia = 3;
+        } else if (request.queryParams("urgency").equals("pouca-emergencia")) {
+            urgencia = 2;
+        } else {
+            urgencia = 1;
         }
 
-        return html;       
+        Tarefa tarefa = new Tarefa(Integer.parseInt(request.params(":listaId")), urgencia,
+                request.queryParams("description_task"));
+        String html = getToDoPage(idUsuario);
+        html = listaService.getAll(html, idUsuario);
+        html = tarefaService.create(html, tarefa);
+        html = listaService.get(html, tarefa.getListaId());
+        return html;
+    }
+
+    public Object get(Request request, Response response) {
+        int idUsuario = Integer.parseInt(request.params(":id"));
+
+        String html = getToDoPage(idUsuario);
+        html = listaService.getAll(html, idUsuario);
+        return html;
+    }
+
+    public Object getTasks(Request request, Response response) {
+        int idUsuario = Integer.parseInt(request.params(":id"));
+        int idLista = Integer.parseInt(request.params(":listaId"));
+
+        String html = getToDoPage(idUsuario);
+        html = listaService.getAll(html, idUsuario);
+        html = tarefaService.getAll(html, idLista);
+        html = listaService.get(html, idLista);
+        return html;
     }
 }

@@ -21,6 +21,8 @@ public class CorService {
     private final int PAGINA_DETALHE = 2;
     private final int PAGINA_ATUALIZAR = 3;
 
+    private final int PAGINA_SI = 4;
+
     public CorService() {
         criaPagina();
     }
@@ -167,6 +169,39 @@ public class CorService {
 
 
 
+        } else if(tipo == PAGINA_SI){
+            pathPagina = "src/main/resources/public/paletaSI.html";
+            pagina = "";
+            try {
+                Scanner entrada = new Scanner(new File(pathPagina));
+                while (entrada.hasNext()) {
+                    pagina += (entrada.nextLine() + "\n");
+                }
+                entrada.close();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+            String coresHtml = "";
+            List<Cor> cores = corDAO.getOrderByNome(userid);
+
+            for (Cor c : cores) {
+                coresHtml += "<a href=\"./cor/" + c.getID() +"\" class=\"color\">\n" +
+                        "        <div class=\"color_demo min\" style=\"background:" + c.getHex() +"\"></div>\n" +
+                        "        <span class=\"color_hex\">" + c.getHex() + "</span>\n" +
+                        "</a>\n";
+            }
+            pagina = pagina.replaceFirst("<CORES>", coresHtml);
+
+
+            pagina = pagina.replaceAll("%%./", "../");
+            pagina = pagina.replaceAll("!!./","../../../");
+            pagina = pagina.replaceAll("../styles", "../../styles");
+            pagina = pagina.replaceAll("../scripts", "../../scripts");
+            pagina = pagina.replaceAll("../assets", "../../assets");
+
+
+
         }
     }
 
@@ -189,6 +224,7 @@ public class CorService {
         }
 
         criaPagina(owner);
+        pagina = pagina.replaceAll("./corSugestao", "../corSugestao");
         pagina = pagina.replaceAll("./cor/", "./");
         pagina = pagina.replaceAll("%%./", "../");
         pagina = pagina.replaceAll("!!./","../../../");
@@ -213,6 +249,7 @@ public class CorService {
             String resp = "Cor " + id + " não encontrada.";
             criaPagina();
         }
+        pagina = pagina.replaceAll("./corSugestao", "../corSugestao");
         pagina = pagina.replaceAll("!!./","../../");
         pagina = pagina.replaceAll("../styles", "../../styles");
         pagina = pagina.replaceAll("../scripts", "../../scripts");
@@ -259,6 +296,7 @@ public class CorService {
             resp = "Cor (" + id + ") não encontrada!";
         }
         criaPagina(owner);
+        pagina = pagina.replaceAll("./corSugestao", "../../corSugestao");
         pagina = pagina.replaceAll("./cor/", "../");
         pagina = pagina.replaceAll("./criar", "../criar");
         pagina = pagina.replaceAll("%%./", "../../");
@@ -318,16 +356,24 @@ public class CorService {
             resp = "Cor (ID " + cor.getID() + ") não encontrada!";
         }
         criaPagina(owner);
+        pagina = pagina.replaceAll("./corSugestao", "../../corSugestao");
         pagina = pagina.replaceAll("./criar", "../criar");
         pagina = pagina.replaceAll("%%./cor", "./cor");
         pagina = pagina.replaceAll("%%./", "../../");
-        pagina = pagina.replaceAll("./cor", "../../cor");
+        pagina = pagina.replaceAll("./cor/", "../../cor");
         pagina = pagina.replaceAll("!!./","../../../");
         pagina = pagina.replaceAll("../styles", "../../../styles");
         pagina = pagina.replaceAll("../scripts", "../../../scripts");
         pagina = pagina.replaceAll("../assets", "../../../assets");
         return pagina.replaceFirst("<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"\">",
                 "<input type=\"hidden\" id=\"msg\" name=\"msg\" value=\"" + resp + "\">");
+    }
+
+    public Object getSI(Request request, Response response){
+        int owner = Integer.parseInt(request.params(":userid"));
+        criaPagina(PAGINA_SI, owner);
+
+        return pagina;
     }
 
     private static Color hex2Rgb(String colorStr) {

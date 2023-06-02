@@ -1,6 +1,7 @@
 package app;
 
 import static spark.Spark.*;
+import static spark.Spark.get;
 
 import javax.servlet.MultipartConfigElement;
 
@@ -51,6 +52,8 @@ public class Aplicacao {
         // ====================
         get(":userid/desenhar", (request, response) -> desenhoService.getDes(request, response));
 
+        get(":userid/deleteDesenho/:id", ((request, response) -> desenhoService.delete(request,response)));
+
         post(":userid/desenhar/inserir", (request, response) -> desenhoService.insercao(request, response));
 
         post(":userid/desenhar/atualizar/:id", (request, response) -> desenhoService.update(request, response));
@@ -60,6 +63,8 @@ public class Aplicacao {
         get(":userid/desenhar/:id", ((request, response) -> desenhoService.get(request, response)));
 
         // ===================
+
+        get(":userid/corSugestao", ((request, response) -> corService.getSI(request,response)));
 
         get(":userid/cor/criar", (request, response) -> corService.getIns(request, response));
 

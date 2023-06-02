@@ -21,6 +21,7 @@ public class DesenhoService {
     private final int PAGINA_DESENHAR = 0;
     private final int PAGINA_LISTAR = 1;
     private final int PAGINA_ATUALIZAR = 2;
+    private final int PAGINA_DESENHARDELETE = 3;
 
     public DesenhoService(){
         criaPagina();
@@ -35,7 +36,7 @@ public class DesenhoService {
     private void criaPagina(int tipo, int userId) { criaPagina(tipo, new Desenho( ), userId);}
     private void criaPagina(int tipo, Desenho desenho, int userId){
         String pathPagina;
-        if(tipo == PAGINA_DESENHAR || tipo == PAGINA_ATUALIZAR){
+        if(tipo == PAGINA_DESENHAR || tipo == PAGINA_ATUALIZAR || tipo == PAGINA_DESENHARDELETE){
             pathPagina = "src/main/resources/public/draw.html";
             pagina = "";
             String acao, motivo;
@@ -52,8 +53,16 @@ public class DesenhoService {
             if(tipo == PAGINA_DESENHAR) {
                 pagina = pagina.replaceAll("%%./","../" + userId + "/");
                 pagina = pagina.replaceAll("!!./","../");
+                pagina = pagina.replaceFirst("../deleteDesenho/","#");
                 acao =  "./desenhar/inserir";
-            } else{
+            } else if( tipo == PAGINA_DESENHARDELETE){
+                pagina = pagina.replaceAll("%%./","../" + userId + "/");
+                pagina = pagina.replaceAll("!!./","../");
+                pagina = pagina.replaceFirst("../deleteDesenho/","#");
+
+                acao =  "../desenhar/inserir";
+            }
+            else{
                 pagina = pagina.replaceFirst("<input class=\"save_drawing\" type=\"submit\" value=\"Salvar desenho\">","<input class=\"save_drawing\" type=\"submit\" value=\"Atualizar desenho\" style=\"background: purple\">");
                 String script = "<script>\n" +
                         "function carrega(){\n" +
@@ -159,6 +168,8 @@ public class DesenhoService {
             response.status(200); // success
             criaPagina(PAGINA_ATUALIZAR, desenho,owner);
             System.out.println("ENCONTRADA: " + desenho);
+
+            pagina = pagina.replaceFirst("../deleteDesenho/","../deleteDesenho/" + id   );
             pagina = pagina.replaceFirst("./listarDesenhos","../listarDesenhos");
             pagina = pagina.replaceAll("!!./","../../");
             pagina = pagina.replaceAll("%%./","../");
@@ -211,6 +222,29 @@ public class DesenhoService {
         pagina = pagina.replaceAll("./assets", "../../assets");
         response.header("Content-Type", "text/html");
         response.header("Content-Encoding", "UTF-8");
+        return pagina;
+    }
+
+    public Object delete(Request request, Response response){
+        int owner = Integer.parseInt(request.params(":userid"));
+        int id = Integer.parseInt(request.params(":id"));
+        Desenho desenho = desenhoDAO.get(id);
+
+        if (desenho != null && desenho.getIdDono() == owner) {
+            desenhoDAO.delete(id);
+            response.status(200); // success
+        } else {
+            response.status(404); // 404 Not found
+        }
+        criaPagina(PAGINA_DESENHARDELETE,owner);
+        pagina = pagina.replaceFirst("./listarDesenhos","../listarDesenhos");
+        pagina = pagina.replaceAll("../" + owner + "/index","/");
+        pagina = pagina.replaceAll("../" + owner,"../../" + owner);
+        pagina = pagina.replaceAll("./styles","../../styles");
+        pagina = pagina.replaceAll("./scripts", "../../scripts");
+        pagina = pagina.replaceAll("./assets", "../../assets");
+
+
         return pagina;
     }
 }

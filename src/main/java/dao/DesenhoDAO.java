@@ -57,19 +57,19 @@ public class DesenhoDAO extends DAO{
     }
 
     public List<Desenho> get(){
-        return get("");
+        return get("", -1);
     }
 
-    public List<Desenho> getOrderById(){
-        return get("des_id");
+    public List<Desenho> getOrderById(int owner){
+        return get("des_id", owner);
     }
 
-    private List<Desenho> get(String orderBy) {
+    private List<Desenho> get(String orderBy, int owner) {
         List<Desenho> desenhos = new ArrayList<Desenho>();
 
         try {
             Statement st = conexao.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
-            String sql = "SELECT * FROM chillout.desenho" + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
+            String sql = "SELECT * FROM chillout.desenho WHERE des_id_usuario = " + owner + " " + ((orderBy.trim().length() == 0) ? "" : (" ORDER BY " + orderBy));
             ResultSet rs = st.executeQuery(sql);
             while(rs.next()) {
                 Desenho d = new Desenho(rs.getInt("des_id"), rs.getString("des_padrao"),
